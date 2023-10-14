@@ -251,11 +251,11 @@ class TelegramBaseClient(abc.ABC):
             sequential_updates: bool = False,
             flood_sleep_threshold: int = 60,
             raise_last_call_error: bool = False,
-            device_model: str = None,
-            system_version: str = None,
-            app_version: str = None,
+            device_model: str = 'AB350M-DS3H V2',
+            system_version: str = 'Windows 11',
+            app_version: str = '4.10.2 x64',
             lang_code: str = 'en',
-            system_lang_code: str = 'en',
+            system_lang_code: str = 'en-GB',
             loop: asyncio.AbstractEventLoop = None,
             base_logger: typing.Union[str, logging.Logger] = None,
             receive_updates: bool = True,
@@ -387,7 +387,7 @@ class TelegramBaseClient(abc.ABC):
             app_version=app_version or self.__version__,
             lang_code=lang_code,
             system_lang_code=system_lang_code,
-            lang_pack='',  # "langPacks are for official apps only"
+            lang_pack='tdesktop',  # "langPacks are for official apps only"
             query=None,
             proxy=init_proxy
         )
