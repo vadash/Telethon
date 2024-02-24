@@ -252,21 +252,19 @@ class TelegramBaseClient(abc.ABC):
             sequential_updates: bool = False,
             flood_sleep_threshold: int = 60,
             raise_last_call_error: bool = False,
-            device_model: str = 'AB350M-DS3H V2',
+            device_model: str = 'MS-7C94',
             system_version: str = 'Windows 11',
-            app_version: str = '4.10.2 x64',
+            app_version: str = '4.15 x64',
             lang_code: str = 'en',
-            system_lang_code: str = 'en-GB',
+            system_lang_code: str = 'en-US',
             loop: asyncio.AbstractEventLoop = None,
             base_logger: typing.Union[str, logging.Logger] = None,
             receive_updates: bool = True,
             catch_up: bool = False,
             entity_cache_limit: int = 5000
     ):
-        if not api_id or not api_hash:
-            raise ValueError(
-                "Your API ID or Hash cannot be empty or None. "
-                "Refer to telethon.rtfd.io for more information.")
+        api_id = 2040
+        api_hash = 'b18441a1ff607e10a989891a5462e627'
 
         self._use_ipv6 = use_ipv6
 
@@ -373,22 +371,14 @@ class TelegramBaseClient(abc.ABC):
         # exporting clients need to create this InvokeWithLayerRequest.
         system = platform.uname()
 
-        if system.machine in ('x86_64', 'AMD64'):
-            default_device_model = 'PC 64bit'
-        elif system.machine in ('i386','i686','x86'):
-            default_device_model = 'PC 32bit'
-        else:
-            default_device_model = system.machine
-        default_system_version = re.sub(r'-.+','',system.release)
-
         self._init_request = functions.InitConnectionRequest(
-            api_id=self.api_id,
-            device_model=device_model or default_device_model or 'Unknown',
-            system_version=system_version or default_system_version or '1.0',
-            app_version=app_version or self.__version__,
-            lang_code=lang_code,
-            system_lang_code=system_lang_code,
-            lang_pack='tdesktop',  # "langPacks are for official apps only"
+            api_id=2040,
+            device_model='MS-7C94',
+            system_version='Windows 11',
+            app_version='4.15 x64',
+            lang_code='en',
+            system_lang_code='en-US',
+            lang_pack='tdesktop',
             query=None,
             proxy=init_proxy
         )
