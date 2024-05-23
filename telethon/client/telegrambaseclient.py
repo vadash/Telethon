@@ -22,6 +22,8 @@ DEFAULT_DC_ID = 2
 DEFAULT_IPV4_IP = '149.154.167.51'
 DEFAULT_IPV6_IP = '2001:67c:4e8:f002::a'
 DEFAULT_PORT = 443
+TELEGRAM_VERSION = '5.01 x64'
+TELEGRAM_DEVICE_MODEL = 'AB350M-DS3H V2'
 
 if typing.TYPE_CHECKING:
     from .telegramclient import TelegramClient
@@ -252,9 +254,9 @@ class TelegramBaseClient(abc.ABC):
             sequential_updates: bool = False,
             flood_sleep_threshold: int = 60,
             raise_last_call_error: bool = False,
-            device_model: str = 'MS-7C94',
+            device_model: str = TELEGRAM_DEVICE_MODEL,
             system_version: str = 'Windows 11',
-            app_version: str = '4.15 x64',
+            app_version: str = TELEGRAM_VERSION,
             lang_code: str = 'en',
             system_lang_code: str = 'en-US',
             loop: asyncio.AbstractEventLoop = None,
