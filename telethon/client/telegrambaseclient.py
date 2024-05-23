@@ -23,7 +23,7 @@ DEFAULT_DC_ID = 2
 DEFAULT_IPV4_IP = '149.154.167.51'
 DEFAULT_IPV6_IP = '2001:67c:4e8:f002::a'
 DEFAULT_PORT = 443
-TELEGRAM_VERSION = '5.01 x64'
+TELEGRAM_VERSION = '5.0.1 x64'
 
 if typing.TYPE_CHECKING:
     from .telegramclient import TelegramClient
