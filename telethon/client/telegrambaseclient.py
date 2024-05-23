@@ -8,6 +8,7 @@ import time
 import typing
 import datetime
 import pathlib
+import wmi
 
 from .. import version, helpers, __name__ as __base_name__
 from ..crypto import rsa
@@ -23,7 +24,6 @@ DEFAULT_IPV4_IP = '149.154.167.51'
 DEFAULT_IPV6_IP = '2001:67c:4e8:f002::a'
 DEFAULT_PORT = 443
 TELEGRAM_VERSION = '5.01 x64'
-TELEGRAM_DEVICE_MODEL = 'AB350M-DS3H V2'
 
 if typing.TYPE_CHECKING:
     from .telegramclient import TelegramClient
@@ -65,6 +65,10 @@ class _ExportState:
         assert self.should_disconnect(), 'marked as disconnected when it was borrowed'
         self._connected = False
 
+def get_motherboard_name():
+    c = wmi.WMI()
+    for board in c.Win32_BaseBoard():
+        return board.Product
 
 # TODO How hard would it be to support both `trio` and `asyncio`?
 class TelegramBaseClient(abc.ABC):
@@ -254,7 +258,7 @@ class TelegramBaseClient(abc.ABC):
             sequential_updates: bool = False,
             flood_sleep_threshold: int = 60,
             raise_last_call_error: bool = False,
-            device_model: str = TELEGRAM_DEVICE_MODEL,
+            device_model: str = get_motherboard_name(),
             system_version: str = 'Windows 11',
             app_version: str = TELEGRAM_VERSION,
             lang_code: str = 'en',
@@ -377,9 +381,9 @@ class TelegramBaseClient(abc.ABC):
 
         self._init_request = functions.InitConnectionRequest(
             api_id=2040,
-            device_model='MS-7C94',
+            device_model=get_motherboard_name(),
             system_version='Windows 11',
-            app_version='4.15 x64',
+            app_version=TELEGRAM_VERSION,
             lang_code='en',
             system_lang_code='en-US',
             lang_pack='tdesktop',
